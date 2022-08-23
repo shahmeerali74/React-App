@@ -1,22 +1,30 @@
 import React from 'react'
 import { useState } from 'react'
+import Success from './Success';
 
 
 export default function Home(props) {
+
+
 const ToUpperCaseHandle=()=>{
   const newText=text.toLocaleUpperCase();
     setText(newText);
     console.log(newText);
+    props.showSuccess("converted to upper case","success")
  }
  const ToCopyHandle=()=>{
   let copyText= document.getElementById("mytextarea");
   copyText.select();
   navigator.clipboard.writeText(copyText.value);
+  props.showSuccess("converted to upper case","success")
+
  }
 
  const ToLowerCaseHandle=()=>{
     const newText=text.toLocaleLowerCase();
     setText(newText)
+    props.showSuccess("converted to lower case","success")
+
  }
     let onChangeHandler=(event)=>{
         setText(event.target.value)

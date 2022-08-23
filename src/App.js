@@ -2,15 +2,24 @@ import { useState } from 'react';
 import './App.css';
 import Navbar from './component/Navbar';
 import Home from './component/Home';
-import About from './component/About';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom";
+import Success from './component/Success';
+// import About from './component/About';
+// import {
+//   BrowserRouter as Router,
+//   Switch,
+//   Route,
+//   Link
+// } from "react-router-dom";
 
 function App() {
+
+  const[success,setsuccess]=useState(null);
+  const showSuccess=(message,type)=>{
+    setsuccess({
+      msg:message,
+      typ:type
+    })
+  }
   const [firstColor,setFirstColor]=useState({
     backgroundColor:"#072423",
     color:"red",
@@ -28,11 +37,13 @@ const[Mode,setMode]=useState("");
       setMode("light");
       document.body.style.backgroundColor="white";
       document.body.style.color="black";
-      setdarkmode("Enable light mode");
+      setdarkmode("Enable dark mode");
       setFirstColor({
         backgroundColor:"#072423",
         color:"red",
       })
+      showSuccess(" Dark Mode has been disable","success");
+
       
     }
   }
@@ -40,11 +51,13 @@ const[Mode,setMode]=useState("");
       setMode("dark");
       document.body.style.backgroundColor="grey";
       document.body.style.color="green";
-      setdarkmode("Enable dark mode");
+      setdarkmode("Enable light mode");
       setFirstColor({
         backgroundColor:"brown",
         color:"pink",
       })
+    showSuccess(" light Mode has been disable","success");
+
       
     }
 
@@ -58,10 +71,12 @@ const[Mode,setMode]=useState("");
 
   return (
     <>
-    <Router>
-    <Navbar mode={Mode} handleModeChange={handleModeChange} darkmode={darkmode}/>
+    {/* <Textutlities heading="Enter Your Text Down Here" txtvalue="Enter text here" color={firstColor} /> */}
+    <Navbar mode={Mode} handleModeChange={handleModeChange} darkmode={darkmode} />
+    <Success alert={success}/>
+    <Home showSuccess={showSuccess}/>
+    {/* <Router>
 
-      {/* <Textutlities heading="Enter Your Text Down Here" txtvalue="Enter text here" color={firstColor} /> */}
   <div className="container">
     <Switch>
           <Route exact path="/">
@@ -75,7 +90,7 @@ const[Mode,setMode]=useState("");
    
     </Switch>
     </div>
-    </Router>
+    </Router> */}
     </>
   );
   }
