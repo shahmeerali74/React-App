@@ -3,13 +3,12 @@ import './App.css';
 import Navbar from './component/Navbar';
 import Home from './component/Home';
 import Success from './component/Success';
-// import About from './component/About';
-// import {
-//   BrowserRouter as Router,
-//   Switch,
-//   Route,
-//   Link
-// } from "react-router-dom";
+import About from './component/About';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+} from "react-router-dom";
 
 function App() {
 
@@ -19,6 +18,10 @@ function App() {
       msg:message,
       typ:type
     })
+
+    setTimeout(() => {
+      setsuccess(null);
+    }, 1500);
   }
   const [firstColor,setFirstColor]=useState({
     backgroundColor:"#072423",
@@ -42,21 +45,20 @@ const[Mode,setMode]=useState("");
         backgroundColor:"#072423",
         color:"red",
       })
-      showSuccess(" Dark Mode has been disable","success");
-
+            showSuccess(" Dark mode has been disable","success");
       
     }
   }
     else{
       setMode("dark");
-      document.body.style.backgroundColor="grey";
-      document.body.style.color="green";
+      document.body.style.backgroundColor="#603224";
+      document.body.style.color="white";
       setdarkmode("Enable light mode");
       setFirstColor({
         backgroundColor:"brown",
         color:"pink",
       })
-    showSuccess(" light Mode has been disable","success");
+    showSuccess(" light mode has been disable","success");
 
       
     }
@@ -71,26 +73,26 @@ const[Mode,setMode]=useState("");
 
   return (
     <>
-    {/* <Textutlities heading="Enter Your Text Down Here" txtvalue="Enter text here" color={firstColor} /> */}
+    
+    <Router>
     <Navbar mode={Mode} handleModeChange={handleModeChange} darkmode={darkmode} />
     <Success alert={success}/>
-    <Home showSuccess={showSuccess}/>
-    {/* <Router>
-
   <div className="container">
+    
     <Switch>
           <Route exact path="/">
-              <Home/>
+              <Home showSuccess={showSuccess}/>
           </Route>
 
           <Route exact path="/about">
-              <About/>
+              <About mode={Mode} showSuccess={showSuccess}/>
           </Route>
 
    
     </Switch>
+
     </div>
-    </Router> */}
+    </Router>
     </>
   );
   }

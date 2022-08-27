@@ -8,12 +8,13 @@ export default function Success(props) {
   }
   const space=(words)=>{
     const space=words;
-    return words.split(" ")
+    return space.split("  ")
   }
   return (
-
-    props.alert && <div class={`alert alert-success-${props.alert.typ}`} role="alert">
-        <strong>{capitalize(props.alert.typ)}</strong>:<strong>{props.alert.msg}</strong>
+    <div style={{height:"50px"}}>
+      {props.alert && <div class={`alert alert-success-${props.alert.typ}`} role="alert">
+          <strong>{capitalize(props.alert.typ)}</strong> :<strong>{space(props.alert.msg)}</strong>
+      </div>}
     </div>
   )
 }
