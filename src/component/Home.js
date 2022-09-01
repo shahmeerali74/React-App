@@ -67,7 +67,7 @@ const ToUpperCaseHandle=()=>{
 
       <div className="container">
         <h1>Words per Minutes</h1>
-        <p>{text.split(" ").filter((element)=>{return element.length!==0}).length} words</p>
+        <p>{text.split(/\s+/).filter((element)=>{return element.length!==0}).length} words</p>
         <p>{text.length} characters</p>
         <p>{0.08 * text.split(" ").filter((element)=>{return element.length!==0}).length} Minutes Read </p>
       </div>

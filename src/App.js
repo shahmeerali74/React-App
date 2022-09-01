@@ -31,13 +31,29 @@ function App() {
   const[darkmode,setdarkmode]=useState("enable dark mode");
 
 
+const removeClasses=()=>{
+    document.body.classList.remove("bg-light");
+    document.body.classList.remove("bg-dark");
+    document.body.classList.remove("bg-success");
+    document.body.classList.remove("bg-warning");
+    document.body.classList.remove("bg-danger");
+    document.body.classList.remove("bg-primary");
+    document.body.classList.remove("bg-secondary");
+  }
 
-const[Mode,setMode]=useState("");
- const handleModeChange=()=>{
+
+  const[Mode,setMode]=useState("");
+  const handleModeChange=(cls)=>{
+    if(cls==="secondary"){
+      document.body.style.color="#00000";
+    }
+  removeClasses();
+  document.body.classList.add("bg-"+cls);
+  console.log(cls);
   console.log("helo i am running");
   if(Mode==='dark'){
     {
-      setMode("light");
+      // setMode("light");
       document.body.style.backgroundColor="white";
       document.body.style.color="black";
       setdarkmode("Enable dark mode");
@@ -50,7 +66,7 @@ const[Mode,setMode]=useState("");
     }
   }
     else{
-      setMode("dark");
+      // setMode("dark");
       document.body.style.backgroundColor="#603224";
       document.body.style.color="white";
       setdarkmode("Enable light mode");
