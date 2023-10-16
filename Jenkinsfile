@@ -4,6 +4,8 @@ pipeline {
         repoLink="${env.repo_link}"
         repoName="${env.repo_name}"
         imageName="${env.image_name}"
+        dockerHubUserName="${env.docker_hub_user}"
+        dockerHubPass="${env.docker_hub_pass}"
     }
     stages {
         stage('checkout') {
@@ -41,7 +43,7 @@ pipeline {
         stage("run-the-shell-script"){
             steps{
                 script{
-                    sh'./docker_push_file.sh'
+                    sh "./docker_push_file.sh ${dockerHubUserName} ${dockerHubPass}"
                 }
             }
         }
