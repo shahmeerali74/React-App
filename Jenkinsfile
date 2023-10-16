@@ -43,8 +43,16 @@ pipeline {
         stage("run-the-shell-script"){
             steps{
                 script{
+                    sh 'chmod +x docker_push_file.sh'
                     sh "./docker_push_file.sh ${dockerHubUserName} ${dockerHubPass}"
                 }
+            }
+        }
+
+        stage("deploy_the_image"){
+            steps{
+                sh "chmod +x deploy.sh"
+                sh "./deploy.sh"
             }
         }
 
