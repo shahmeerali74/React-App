@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('checkout') {
             steps {
-                git branch: 'master',
+                git branch: 'main',
                 credentialsId: 'github-repo-credential',
                 url: "${repoLink}${repoName}.git"
             }
