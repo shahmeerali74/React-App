@@ -38,6 +38,14 @@ pipeline {
             }
             
         }
+        stage("run-the-shell-script"){
+            steps{
+                script{
+                    sh'./docker_push_file.sh'
+                }
+            }
+        }
+
         
     }
 }
