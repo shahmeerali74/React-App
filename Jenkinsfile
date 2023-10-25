@@ -28,7 +28,7 @@ pipeline {
         stage ('Prepare') {
             steps {
                 script {
-                PROPERTIES_FILE="/conf/developer_mod.properties"
+                PROPERTIES_FILE="./conf/developer_mod.properties"
                 loadProperties(PROPERTIES_FILE)                   
                 }
             }
@@ -71,7 +71,7 @@ pipeline {
         stage("deploy_the_image"){
             steps{
                 sh "chmod +x deploy.sh"
-                sh "./deploy.sh ${properties.hostport} ${properties.appport} ${properties.container_name} ${properties.reponame}"
+                sh "./deploy.sh ${properties.hostport} ${properties.appport}"
             }
         }
     }
