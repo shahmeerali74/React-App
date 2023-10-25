@@ -69,7 +69,7 @@ pipeline {
         stage("deploy_the_image"){
             steps{
                 sh "chmod +x deploy.sh"
-                sh "./deploy.sh ${properties.Hostport} ${properties.Appport} ${properties.container_name} ${properties.repoName}"
+                sh "./deploy.sh ${properties.hostport} ${properties.appport} ${properties.container_name} ${properties.reponame}"
             }
         }
     }
