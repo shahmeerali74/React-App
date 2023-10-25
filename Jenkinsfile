@@ -1,3 +1,5 @@
+properties= null
+
 def loadProperties(def properties_file) {
     node {
       properties = readProperties file: "${properties_file}"
@@ -26,7 +28,7 @@ pipeline {
         stage ('Prepare') {
             steps {
                 script {
-                PROPERTIES_FILE="./conf/developer_mod.properties"
+                PROPERTIES_FILE="/conf/developer_mod.properties"
                 loadProperties(PROPERTIES_FILE)                   
                 }
             }
