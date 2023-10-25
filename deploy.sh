@@ -1,3 +1,6 @@
 #deploy the app
-
-docker run -d -p 8081:3000 --name frontend_app_developer --rm shahmeerali/$imageName:$BUILD_NUMBER
+hostport=$1
+appport=$2
+cont_name=$3
+repoName=$4
+docker run -d -p $hostport:$appport --name $cont_name --rm $repoName/$imageName:$BUILD_NUMBER

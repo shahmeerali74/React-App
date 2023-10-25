@@ -1,3 +1,10 @@
+def loadProperties(def properties_file) {
+    node {
+      properties = readProperties file: "${properties_file}"
+    }
+}
+
+
 pipeline {
     agent any
     environment{
@@ -7,6 +14,7 @@ pipeline {
         dockerHubUserName="${env.docker_hub_user}"
         dockerHubPass="${env.docker_hub_pass}"
     }
+
     stages {
         stage('checkout') {
             steps {
@@ -15,6 +23,14 @@ pipeline {
                 url: "${repoLink}${repoName}.git"
             }
         }
+        stage ('Prepare') {
+            steps {
+                script {
+                PROPERTIES_FILE="./conf/developer_mod.properties"
+                loadProperties(PROPERTIES_FILE)                   
+                }
+            }
+        }        
         
         stage("Build  Docker Image"){
             steps{
@@ -40,7 +56,8 @@ pipeline {
             }
             
         }
-        stage("run-the-shell-script"){
+        
+        stage("deploy-to-DockerHub"){
             steps{
                 script{
                     sh 'chmod +x docker_push_file.sh'
@@ -52,7 +69,7 @@ pipeline {
         stage("deploy_the_image"){
             steps{
                 sh "chmod +x deploy.sh"
-                sh "./deploy.sh"
+                sh "./deploy.sh ${properties.Hostport} ${properties.Appport} ${properties.container_name} ${properties.repoName}"
             }
         }
     }
