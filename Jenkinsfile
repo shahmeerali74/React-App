@@ -1,12 +1,3 @@
-properties= null
-
-def loadProperties(def properties_file) {
-    node {
-      properties = readProperties file: "${properties_file}"
-    }
-}
-
-
 pipeline {
     agent any
     environment{
@@ -15,6 +6,8 @@ pipeline {
         imageName="${env.image_name}"
         dockerHubUserName="${env.docker_hub_user}"
         dockerHubPass="${env.docker_hub_pass}"
+        workspace="${env.workspace}"
+        buildfile="${env.buildfile}"
     }
 
     stages {
@@ -28,8 +21,7 @@ pipeline {
         stage ('Prepare') {
             steps {
                 script {
-                PROPERTIES_FILE="./config/developer_mod.properties"
-                loadProperties(PROPERTIES_FILE)                   
+                    properties = readProperties file: '${workspace}/${buildfile}.properties'                  
                 }
             }
         }        
@@ -71,7 +63,7 @@ pipeline {
         stage("deploy_the_image"){
             steps{
                 sh "chmod +x deploy.sh"
-                sh "./deploy.sh ${properties.hostport} ${properties.appport} "
+                sh "./deploy.sh ${properties.hostport} ${properties.appport} ${properties.container_name} ${properties.reponame} "
             }
         }
     }
