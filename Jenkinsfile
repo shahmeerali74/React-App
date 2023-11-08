@@ -21,7 +21,10 @@ pipeline {
         stage ('Prepare') {
             steps {
                 script {
-                    properties = readProperties file: '${workspace}/${buildfile}.properties'                  
+                    properties = readProperties file: "${workspace}/${buildfile}.properties"
+                    echo "value is: ${properties.hostport}"
+                    echo "value is: ${properties.appport}"
+                    
                 }
             }
         }        
