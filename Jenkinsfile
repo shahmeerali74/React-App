@@ -21,10 +21,7 @@ pipeline {
         stage ('Prepare') {
             steps {
                 script {
-                    properties = readProperties file: "${workspace}/${buildfile}.properties"
-                    echo "value is: ${properties.hostport}"
-                    echo "value is: ${properties.appport}"
-                    
+                    properties = readProperties file: "${workspace}/${buildfile}.properties"                   
                 }
             }
         }        
@@ -68,6 +65,7 @@ pipeline {
                 sh "chmod +x deploy.sh"
                 sh "./deploy.sh ${properties.hostport} ${properties.appport} ${properties.container_name} ${properties.reponame} "
             }
+            // uptil this satge all code is good
         }
     }
 }
