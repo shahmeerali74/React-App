@@ -71,7 +71,7 @@ pipeline {
             // uptil this satge all code is good
         }
         
-        stage('sonarqube-analysis'){
+        stage('building stage'){
             steps{
             nodejs(nodeJSInstallationName: 'nodejs'){
                 sh "npm install"
