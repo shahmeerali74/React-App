@@ -8,6 +8,9 @@ pipeline {
         dockerHubPass="${env.docker_hub_pass}"
         workspace="${env.workspace}"
         buildfile="${env.buildfile}"
+        // Other environment variables
+        scannerHome = tool 'SonarScanner'
+        javaHome = tool 'Java11'        
     }
 
     stages {
@@ -67,6 +70,26 @@ pipeline {
             }
             // uptil this satge all code is good
         }
+        
+        stage('sonarqube-analysis'){
+            steps{
+            nodejs(nodeJSInstallationName: 'nodejs'){
+                sh "npm install"
+            }
+          }
+        }
+        stage('sonarQube Analysis') {
+            steps {
+                script {
+                    withSonarQubeEnv('SonarServer') {
+                        sh "${javaHome}/bin/java -version"
+                        // sh "${tool("SonarScanner")}/bin/sonar-scanner -Dsonar.projectKey=nodejsapp -Dsonar.projectNname=nodejsapp"
+                        sh "env JAVA_HOME=${javaHome} ${scannerHome}/bin/sonar-scanner"
+                    }
+                    
+                }
+            }
+        }        
 
     }
 }
