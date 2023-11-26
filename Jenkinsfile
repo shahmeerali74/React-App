@@ -45,14 +45,6 @@ pipeline {
             }
             
         }
-        stage("Docker-ps"){
-            steps{
-                script{
-                    sh 'docker ps'
-                }
-            }
-            
-        }
         
         stage("deploy-to-DockerHub"){
             steps{
